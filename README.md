@@ -151,6 +151,7 @@ This project was developed during an internship at **Kriti Labs**, focusing on A
 
 B.Tech Computer Science and Engineering
 SRM Institute of Science and Technology (SRMIST)
+Kriti Labs
 
 
 ---
