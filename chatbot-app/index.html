@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aegis AI Fleet — Fleet Safety Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="logo-container">
+    <img src="logo.png" alt="Aegis AI" class="logo">
+    <span class="brand-name">AEGIS AI</span>
+</div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" class="active" id="nav-home">Overview</a></li>
+    <li><a onclick="showPage('chat')" id="nav-chat">AI Assistant</a></li>
+    <li><a onclick="showPage('dashboard')" id="nav-dashboard">Dashboard</a></li>
+    <li><a onclick="showPage('vehicle')" id="nav-vehicle">Vehicle Detail</a></li>
+  </ul>
+  <div class="nav-cta">
+        <button class="btn btn-ghost" onclick="showPage('dashboard')">Dashboard</button>
+      <button class="btn btn-primary" onclick="showPage('chat')">OPS Launch Assistant</button>
+    </div>
+</nav>
+
+<div class="app">
+
+<!-- ===================== HOME PAGE ===================== -->
+<div id="home-page" class="page active">
+
+  <!-- ORBS -->
+  <div class="orb" style="width:600px;height:600px;top:-100px;left:-200px;background:radial-gradient(circle,#4f8ef7,transparent)"></div>
+  <div class="orb" style="width:500px;height:500px;top:200px;right:-150px;background:radial-gradient(circle,#22d3c8,transparent)"></div>
+  <div class="orb" style="width:400px;height:400px;bottom:100px;left:30%;background:radial-gradient(circle,#a78bfa,transparent)"></div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="ai-orb"></div>
+    <div class="hero-eyebrow">
+      <div class="particles"></div>
+      <span class="pulse-dot"></span>
+      Real-time Fleet Intelligence · AI-Powered Safety
+    </div>
+
+    <h1 class="hero-title">
+      AI-Powered<br>
+      <span class="gradient-text">Fleet Intelligence</span>
+    </h1>
+
+    <p class="hero-sub">
+      Transform fleet safety data into actionable insights with real-time AI recommendations, predictive risk analysis, and intelligent exception detection.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="showPage('chat')">OPS Launch Assistant</button>
+      <button class="btn btn-teal" onclick="showPage('dashboard')">View Dashboard</button>
+      <button class="btn btn-ghost" onclick="scrollToSection('features')">Explore Features</button>
+    </div>
+
+    <!-- LIVE METRICS -->
+    <div class="metrics-strip">
+      <div class="metric-item">
+        <div class="metric-label">Total Vehicles</div>
+        <div class="metric-value counter" data-target="1284">0</div>
+        <div class="metric-trend">↑ addition of this month</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label">Active Trips</div>
+        <div class="metric-value counter" data-target="847">0</div>
+        <div class="metric-trend">↑ Live across backend data </div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label">Avg Safety Score</div>
+        <div class="metric-value counter" data-target="73" data-suffix="">0</div>
+        <div class="metric-trend">↑ +ve from last quarter</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label">Exception Reduction</div>
+        <div class="metric-value counter" data-target="34" data-suffix="%">0</div>
+        <div class="metric-trend">↑ If AI is deployed </div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label"> event records </div>
+        <div class="metric-value counter" data-target="18429">0</div>
+        <div class="metric-trend">↑ in the system </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" style="padding-top:60px">
+    <div style="text-align:center;margin-bottom:56px">
+      <div class="section-label">Platform Capabilities</div>
+      <div class="section-title">Fleet Intelligence,<br><span class="gradient-text">Reimagined</span></div>
+      <p class="section-sub" style="margin:16px auto 0;text-align:center">Enterprise-grade AI that monitors every vehicle, predicts every risk, and generates actionable safety improvements in real time.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="glass-card feature-card">
+        <div class="feature-icon blue">MON</div>
+        <div class="feature-title">Real-Time Vehicle Monitoring</div>
+        <div class="feature-desc">Track every vehicle's position, speed, and behavior patterns with millisecond precision. Instant alerts on critical safety events.</div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon teal">AI</div>
+        <div class="feature-title">AI Risk Prediction</div>
+        <div class="feature-desc">Phi-3 and Llama 3 powered models analyze historical patterns to predict future exceptions before they happen.</div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon purple">SYS</div>
+        <div class="feature-title">Conversational AI Assistant</div>
+        <div class="feature-desc">ChatGPT-style interface. Ask about any vehicle, driver, or route. Get instant intelligent analysis and recommendations.</div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon amber">OPS</div>
+        <div class="feature-title">Exception Analytics</div>
+        <div class="feature-desc">Deep analysis of overspeed, harsh braking, night driving, and aggressive maneuvers with trend forecasting.</div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon green">ALT</div>
+        <div class="feature-title">Alternative Vehicle AI</div>
+        <div class="feature-desc">When a vehicle shows high risk, our AI instantly suggests safer alternatives from your fleet with matching capability profiles.</div>
+      </div>
+      <div class="glass-card feature-card">
+        <div class="feature-icon red">KPI</div>
+        <div class="feature-title">Driver Performance Scoring</div>
+        <div class="feature-desc">Behavioral scoring models track 47 safety parameters to build comprehensive driver risk profiles over time.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXCEPTION ANALYTICS SECTION -->
+  <div class="exception-grid" style="grid-template-columns:1fr 1fr;margin-top:32px">
+
+    <!-- <div class="glass-card exception-badge">
+      <div class="icon">(OSP)</div>
+      <div class="name">Overspeed</div>
+      <div id="overspeedCount" class="count" style="color:var(--red)">0</div>
+      <div class="bar">
+        <div class="bar-fill" style="width:82%;background:var(--red)"></div>
+      </div>
+    </div> -->
+<!--   
+    <div class="glass-card exception-badge">
+      <div class="icon">(BRK)</div>
+      <div class="name">Harsh Braking</div>
+      <div id="brakingCount" class="count" style="color:var(--amber)">0</div>
+      <div class="bar">
+        <div class="bar-fill" style="width:65%;background:var(--amber)"></div>
+      </div>
+    </div> -->
+  
+    <!-- <div class="glass-card exception-badge">
+      <div class="icon">(NGT)</div>
+      <div class="name">Night Driving</div>
+      <div id="nightCount" class="count" style="color:var(--purple)">0</div>
+      <div class="bar">
+        <div class="bar-fill" style="width:48%;background:var(--purple)"></div>
+      </div>
+    </div> -->
+  
+    <!-- <div class="glass-card exception-badge">
+      <div class="icon">(ACC)</div>
+      <div class="name">Harsh Acceleration</div>
+      <div id="accelCount" class="count" style="color:var(--accent)">0</div>
+      <div class="bar">
+        <div class="bar-fill" style="width:74%;background:var(--accent)"></div>
+      </div>
+    </div> -->
+  
+    <!-- <div class="glass-card exception-badge" style="grid-column:span 2">
+      <div class="icon">(ALL)</div>
+      <div class="name">Total Exceptions</div>
+      <div id="totalExceptionCount" class="count" style="color:var(--teal)">0</div>
+      <div class="bar">
+        <div class="bar-fill" style="width:100%;background:var(--teal)"></div>
+      </div>
+    </div> -->
+  
+  </div>
+
+  <!-- CTA STRIP -->
+  <section style="text-align:center;padding-bottom:120px">
+    <div class="glass-card" style="max-width:720px;margin:0 auto;padding:60px;background:linear-gradient(180deg,rgba(47,140,255,0.06),rgba(0,0,0,0.20))">
+      <div class="section-title" style="margin-bottom:16px">Ready to Transform<br><span class="gradient-text">Your Fleet Safety?</span></div>
+      <p style="color:var(--text-secondary);margin-bottom:32px;font-size:16px">Ask Aegis AI about any vehicle. Get instant risk analysis, exception breakdown, and AI-powered recommendations.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" style="padding:14px 32px;font-size:15px" onclick="showPage('chat')">OPS Start with AI Assistant</button>
+        <button class="btn btn-ghost" style="padding:14px 32px;font-size:15px" onclick="showPage('dashboard')">View Full Dashboard</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== CHAT PAGE ===================== -->
+<div id="chat-page" class="page">
+  <div style="padding-top:64px;height:100vh;display:flex;flex-direction:column">
+    <div style="padding:16px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-0.02em">AI Fleet Assistant</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Powered by Phi-3 · Llama 3 · Aegis Safety Engine</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div style="width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite"></div>
+        <span style="font-size:12px;color:var(--green);font-weight:600">AI Online</span>
+      </div>
+    </div>
+
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:280px 1fr;gap:0">
+
+      <!-- SIDEBAR -->
+      <div style="border-right:1px solid var(--border);overflow-y:auto;padding:16px">
+        <div class="sidebar-label">Watched Vehicles</div>
+        <div id="sidebar-vehicles">
+          <!-- Populated by JS -->
+        </div>
+        <div class="sidebar-label" style="margin-top:20px">Recent Analysis</div>
+        <div id="sidebar-recent"></div>
+      </div>
+
+      <!-- MAIN CHAT -->
+      <div class="glass-card chat-main" style="margin:0;border-radius:0;border:none;background:rgba(6,8,17,0.5)">
+        <div class="chat-window" id="chat-window">
+          <!-- Initial message -->
+          <div class="msg">
+            <div class="msg-avatar ai">⬡</div>
+            <div class="msg-body">
+              <div class="msg-bubble ai">
+                <strong style="display:block;margin-bottom:8px;color:var(--accent)">Aegis AI Fleet Assistant</strong>
+                Welcome to Aegis AI. I can analyze any vehicle in your fleet, assess risk levels, explain exception patterns, and suggest optimizations.<br><br>
+                <span style="color:var(--text-secondary)">Try asking:</span> <span style="color:var(--teal)">"Analyze Trucks"</span> or <span style="color:var(--accent)">"Which vehicles are high risk?"</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUGGESTED PROMPTS -->
+        <div class="suggested-prompts" id="suggested-prompts">
+          <div class="prompt-chip" onclick="sendPrompt('Analyze vehicle TT285')">Analyze TT285</div>
+          <div class="prompt-chip" onclick="sendPrompt('Recommend the safest vehicle in the fleet')">Safest vehicle</div>
+          <div class="prompt-chip" onclick="sendPrompt('Show all high-risk vehicles')">High-risk vehicles</div>
+          <div class="prompt-chip" onclick="sendPrompt('Explain the overspeed trend this month')">Overspeed trends</div>
+          <div class="prompt-chip" onclick="sendPrompt('Compare TT285 vs TT312')">Compare TT285 vs TT312</div>
+          <div class="prompt-chip" onclick="sendPrompt('Predict future exceptions for fleet')">Predict exceptions</div>
+        </div>
+
+        <!-- INPUT -->
+        <div class="chat-input-area">
+          <div class="chat-input-wrap">
+            <textarea id="chat-input" placeholder="Ask about any vehicle, risk, or safety metric..." rows="1" onkeydown="handleChatKey(event)" oninput="autoResize(this)"></textarea>
+            <button class="send-btn" onclick="submitChat()"></button>
+          </div>
+        <button class="btn btn-ghost" style="height:46px;padding:0 14px;flex-shrink:0" title="Voice input"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD PAGE ===================== -->
+<div id="dashboard-page" class="page">
+  <div id="dashboard-inner" style="padding:88px 32px 60px">
+    <div class="db-header">
+      <div>
+        <div class="db-title">Fleet Safety Dashboard</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">Real-time monitoring · Last updated just now</div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <select style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);padding:8px 16px;border-radius:10px;font-size:13px;font-family:var(--font-body)">
+          <option>Last 30 days</option>
+          <option>Last 90 days</option>
+          <option>Last 6 months</option>
+        </select>
+        <button class="btn btn-primary">Export Report</button>
+      </div>
+    </div>
+
+    <!-- TOP STATS -->
+    <div class="db-grid-top">
+      <div class="glass-card db-stat-card">
+        <div class="db-stat-label">Total Exceptions</div>
+        <div class="db-stat-val counter" data-target="7863" style="color:var(--red)">0</div>
+        <div class="db-stat-desc">↓ 18% from last period</div>
+      </div>
+      <div class="glass-card db-stat-card">
+        <div class="db-stat-label">Active Vehicles</div>
+        <div class="db-stat-val counter" data-target="847">0</div>
+        <div class="db-stat-desc">of 1,284 total fleet</div>
+      </div>
+      <div class="glass-card db-stat-card">
+        <div class="db-stat-label">Fleet Safety Score</div>
+        <div class="db-stat-val counter" data-target="73" style="color:var(--amber)">0</div>
+        <div class="db-stat-desc">↑ +4 points this quarter</div>
+      </div>
+      <div class="glass-card db-stat-card">
+        <div class="db-stat-label">AI Recommendations</div>
+        <div class="db-stat-val counter" data-target="2847" style="color:var(--teal)">0</div>
+        <div class="db-stat-desc">Generated this period</div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW -->
+    <div class="db-charts">
+      <div class="glass-card db-chart-card">
+        <div class="db-chart-title">Exception Trends — 12 Month Overview</div>
+        <div class="db-chart-sub">All exception categories with AI anomaly detection overlaid</div>
+        <div class="chart-container" style="height:240px">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+      <div class="glass-card db-chart-card">
+        <div class="db-chart-title">Risk Distribution</div>
+        <div class="db-chart-sub">Fleet segmented by risk tier</div>
+        <div class="chart-container" style="height:240px">
+          <canvas id="riskChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="db-bottom">
+      <!-- Vehicle Rankings -->
+      <div class="glass-card db-chart-card">
+            <div class="db-chart-title">Highest Risk Vehicles</div>
+        <div class="db-chart-sub">Ranked by exception frequency</div>
+        <table class="rank-table" style="margin-top:12px">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Score</th>
+              <th>Exceptions</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody id="risk-table-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Safety Trends -->
+      <div class="glass-card db-chart-card">
+        <div class="db-chart-title">Driver Performance</div>
+        <div class="db-chart-sub">Safety score distribution</div>
+        <div class="chart-container" style="height:200px">
+          <canvas id="driverChart"></canvas>
+        </div>
+      </div>
+
+      <!-- AI Insights -->
+        <div class="glass-card db-chart-card">
+        <div class="db-chart-title">AI Insights</div>
+        <div class="db-chart-sub">Generated recommendations</div>
+        <div id="ai-insights" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VEHICLE DETAIL PAGE ===================== -->
+<div id="vehicle-page" class="page">
+  <div id="vehicle-inner" style="padding:88px 32px 60px;max-width:1200px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+      <div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:800;letter-spacing:-0.04em" id="vd-title">Vehicle TT285</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">Detailed Safety Profile · AI-Enhanced Analysis</div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-ghost" onclick="showPage('chat')">Ask AI</button>
+        <button class="btn btn-primary">Full Report</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;margin-bottom:20px">
+
+      <!-- Left: Summary -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="glass-card" style="padding:28px;text-align:center">
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Safety Score</div>
+          <div class="risk-ring-wrap">
+            <div class="score-ring">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+                <circle id="score-arc" cx="50" cy="50" r="42" fill="none" stroke="url(#scoreGrad)" stroke-width="8" stroke-linecap="round"
+                  stroke-dasharray="263.9" stroke-dashoffset="263.9" style="transition:stroke-dashoffset 1.5s cubic-bezier(0.34,1.56,0.64,1)"/>
+                <defs>
+                  <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#f87171"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="score-text">
+                <span id="vd-score">58</span>
+                <span class="score-label">/ 100</span>
+              </div>
+            </div>
+          </div>
+          <div class="risk-badge risk-high" style="margin:0 auto;display:inline-block" id="vd-risk-badge">HIGH RISK</div>
+        </div>
+
+        <div class="glass-card" style="padding:20px">
+          <div style="font-size:13px;font-weight:600;margin-bottom:14px;color:var(--text-secondary)">Vehicle Information</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:var(--text-muted)">Vehicle ID</span>
+              <span id="vd-id" style="font-weight:600">TT285</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:var(--text-muted)">Grade</span>
+              <span id="vd-grade" style="font-weight:600">A</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <!-- <span style="color:var(--text-muted)">Driver</span> -->
+              <!-- <span style="font-weight:600">Arjun Mehta</span> -->
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:var(--text-muted)">Total Exceptions</span>
+              <span id="vd-exceptions" style="font-weight:600;color:var(--red)">127</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Charts -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="glass-card" style="padding:24px">
+          <div class="db-chart-title">Fleet Exception Distribution</div>
+          <div class="db-chart-sub">Live exception counts from fleet records</div>
+          <div class="chart-container" style="height:200px">
+            <canvas id="vehicleTimelineChart"></canvas>
+          </div>
+        </div>
+        <div class="glass-card" style="padding:24px">
+          <div class="db-chart-title" style="margin-bottom:16px">Exception Breakdown</div>
+          <div class="exception-bars" id="vd-exception-bars">
+            <div class="ex-bar-row">
+              <div class="ex-bar-label">(OSP) Overspeed</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="78" style="background:var(--red)"></div></div>
+              <div class="ex-bar-val">52</div>
+            </div>
+            <div class="ex-bar-row">
+              <div class="ex-bar-label">(BRK) Harsh Braking</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="55" style="background:var(--amber)"></div></div>
+              <div class="ex-bar-val">31</div>
+            </div>
+            <div class="ex-bar-row">
+              <div class="ex-bar-label">(NGT) Night Driving</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="30" style="background:var(--purple)"></div></div>
+              <div class="ex-bar-val">18</div>
+            </div>
+            <div class="ex-bar-row">
+              <div class="ex-bar-label">(OPS) Harsh Accel</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="40" style="background:var(--accent)"></div></div>
+              <div class="ex-bar-val">21</div>
+            </div>
+            <div class="ex-bar-row">
+              <div class="ex-bar-label">(ALT) Harsh Maneuver</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="15" style="background:var(--teal)"></div></div>
+              <div class="ex-bar-val">5</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI RECOMMENDATIONS + ALTERNATIVES + CHECKLIST -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+
+        <div class="glass-card" style="padding:24px">
+        <div class="db-chart-title" style="margin-bottom:4px">SYS AI Recommendations</div>
+        <div class="db-chart-sub" style="margin-bottom:16px">Aegis AI analysis</div>
+        <div class="recommendations" id="vd-recs">
+          <div class="rec-item"><div class="rec-icon">BRK</div><div>Overspeed count of 52 is 3.4× fleet average. Immediate driver counseling recommended.</div></div>
+          <div class="rec-item"><div class="rec-icon">ALT</div><div>Consider rotating TT285 to shorter urban routes where speed limits are naturally lower.</div></div>
+          <div class="rec-item"><div class="rec-icon">KPI</div><div>Harsh braking + overspeed correlation suggests highway driving behavior — schedule coaching.</div></div>
+          <div class="rec-item"><div class="rec-icon">SYS</div><div>Install speed governor calibrated to 80 km/h for inter-city routes until score improves.</div></div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding:24px">
+        <div class="db-chart-title" style="margin-bottom:4px">ALT Alternative Vehicles</div>
+        <div class="db-chart-sub" style="margin-bottom:16px">Safer options for this route</div>
+        <div class="alt-vehicle-grid" style="grid-template-columns:1fr 1fr" id="vd-alternatives">
+          <div class="glass-card alt-v-card" onclick="loadVehicle('TT301')">
+            <div class="alt-v-id">TT301</div>
+            <div class="alt-v-score">Score: 91</div>
+            <div class="alt-v-label">Low Risk</div>
+          </div>
+          <div class="glass-card alt-v-card" onclick="loadVehicle('TT118')">
+            <div class="alt-v-id">TT118</div>
+            <div class="alt-v-score">Score: 87</div>
+            <div class="alt-v-label">Low Risk</div>
+          </div>
+          <div class="glass-card alt-v-card" onclick="loadVehicle('TT442')">
+            <div class="alt-v-id">TT442</div>
+            <div class="alt-v-score">Score: 84</div>
+            <div class="alt-v-label">Low Risk</div>
+          </div>
+          <div class="glass-card alt-v-card" onclick="loadVehicle('TT077')">
+            <div class="alt-v-id">TT077</div>
+            <div class="alt-v-score">Score: 82</div>
+            <div class="alt-v-label">Low Risk</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding:24px">
+        <div class="db-chart-title" style="margin-bottom:4px">Precaution Checklist</div>
+        <div class="db-chart-sub" style="margin-bottom:16px">Action items for fleet manager</div>
+        <div id="precaution-list">
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-text">Conduct driver behavior counseling session</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-text">Review last 5 trip GPS recordings</div>
+          </div>
+          <!-- <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+          </div> -->
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-text">Verify vehicle braking system maintenance</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-text">Set up telematics alert thresholds</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-text">Schedule route re-evaluation</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box" onclick="toggleCheck(this)"></div>
+            <div class="check-text">Notify fleet supervisor of risk status</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /app -->
+
+
+<script src="app.js"></script>
+</body>
+</html>
