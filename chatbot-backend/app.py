@@ -16,8 +16,14 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # ── Load data once at startup ────────────────────────────────────
-df = pd.read_csv("data/sample_data_exceptions_type.csv")
-lookup_df = pd.read_csv("data/exception_lookup.csv")
+# Ensure relative paths work regardless of current working directory.
+from pathlib import Path
+
+_BASE_DIR = Path(__file__).resolve().parent
+
+df = pd.read_csv(_BASE_DIR / "data" / "sample_data_exceptions_type.csv")
+lookup_df = pd.read_csv(_BASE_DIR / "data" / "exception_lookup.csv")
+
 
 print("\n========== DATASET INFO ==========")
 print("Shape:", df.shape)

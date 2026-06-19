@@ -1,7 +1,12 @@
 
-import pandas as pd
 
-lookup_df = pd.read_csv("data/exception_lookup.csv")
+import pandas as pd
+from pathlib import Path
+
+# Make file paths robust to different working directories.
+_BASE_DIR = Path(__file__).resolve().parent
+lookup_df = pd.read_csv(_BASE_DIR / "data" / "exception_lookup.csv")
+
 
 RISK_WEIGHTS = {
     "Overspeed": 10,

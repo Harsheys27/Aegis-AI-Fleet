@@ -141,9 +141,9 @@ function showPage(page) {
   if (navEl) navEl.classList.add('active');
   window.scrollTo(0, 0);
   if (page === 'dashboard') initDashboard();
-  if (page === 'vehicle') initVehiclePage();
   if (page === 'home') initHomeCharts();
 }
+
 
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -254,7 +254,8 @@ function initDashboard() {
   const tbody = document.getElementById('risk-table-body');
   if (tbody) {
     tbody.innerHTML = vehicles.map(v => `
-      <tr style="cursor:pointer" onclick="loadVehicle('${v.id}')">
+      <tr>
+
         <td><strong style="font-family:var(--font-display);font-weight:700">${v.id}</strong></td>
         <td style="color:${v.score < 65 ? 'var(--red)' : 'var(--amber)'}">${v.score}</td>
         <td>${v.exceptions}</td>
@@ -360,79 +361,7 @@ function initDashboard() {
   }, 200);
 }
 
-// =================== VEHICLE PAGE ===================
-const vehicleData = {
-  '414': { score: 72, risk: 'high', exceptions: 3, title: 'Vehicle 414', grade: 'C' },
-  '297': { score: 82, risk: 'medium', exceptions: 2, title: 'Vehicle 297', grade: 'B' },
-  '242': { score: 90, risk: 'low', exceptions: 1, title: 'Vehicle 242', grade: 'A' },
-  '285': { score: 92, risk: 'low', exceptions: 1, title: 'Vehicle 285', grade: 'A' },
-  '5335': { score: 100, risk: 'low', exceptions: 0, title: 'Vehicle 5335', grade: 'A+' }
-};
-
-let currentVehicle = '414';
-
-function loadVehicle(id) {
-  currentVehicle = id;
-  showPage('vehicle');
-}
-
-function initVehiclePage() {
-  const vd = vehicleData[currentVehicle] || vehicleData['414'];
-  document.getElementById('vd-title').textContent = `Vehicle ${currentVehicle}`;
-  document.getElementById('vd-id').textContent = currentVehicle;
-  document.getElementById('vd-score').textContent = vd.score;
-  document.getElementById('vd-exceptions').textContent = vd.exceptions;
-  const gradeEl = document.getElementById('vd-grade');
-  if (gradeEl) gradeEl.textContent = vd.grade || 'N/A';
-  const badge = document.getElementById('vd-risk-badge');
-  badge.className = 'risk-badge risk-' + vd.risk;
-  badge.textContent = vd.risk.toUpperCase() + ' RISK';
-
-  setTimeout(() => {
-    const arc = document.getElementById('score-arc');
-    const circumference = 263.9;
-    const offset = circumference - (vd.score / 100) * circumference;
-    arc.style.strokeDashoffset = offset;
-    arc.style.stroke = vd.score < 65 ? '#f87171' : vd.score < 80 ? '#f59e0b' : '#34d399';
-  }, 300);
-
-  setTimeout(animateBars, 400);
-
-  if (!chartsInit['vehicle_' + currentVehicle]) {
-    chartsInit['vehicle_' + currentVehicle] = true;
-    setTimeout(() => {
-      const el = document.getElementById('vehicleTimelineChart');
-      if (!el) return;
-      if (el._chartInstance) el._chartInstance.destroy();
-      const baseData = [30, 24, 38, 42];
-      el._chartInstance = new Chart(el, {
-        type: 'line',
-        data: {
-          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-          datasets: [{
-            label: 'Total Exceptions',
-            data: baseData.map(d => Math.round(d * (vd.exceptions / 35))),
-            borderColor: '#f87171',
-            backgroundColor: 'rgba(248,113,113,0.08)',
-            tension: 0.4, fill: true, pointRadius: 3,
-            pointBackgroundColor: '#f87171', borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          animation: { duration: 1200 },
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: 'rgba(200,215,255,0.4)', font: { size: 10 } } },
-            y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: 'rgba(200,215,255,0.4)', font: { size: 10 } } }
-          }
-        }
-      });
-    }, 200);
-  }
-}
-
-// =================== SIDEBAR ===================
+// =================== SIDEBAR (chat-only analysis) ===================
 async function initSidebar() {
   const sb = document.getElementById("sidebar-vehicles");
   if (!sb) return;
@@ -440,7 +369,7 @@ async function initSidebar() {
     const response = await fetch("http://127.0.0.1:8000/vehicles");
     const vehicles = await response.json();
     sb.innerHTML = vehicles.map(v => `
-      <div class="sidebar-vehicle" onclick="loadVehicle('${v.vehicle_id}')">
+      <div class="sidebar-vehicle" onclick="sendPrompt('Analyze vehicle TT${v.vehicle_id}')">
         <div>
           <div class="sv-id">${v.vehicle_id}</div>
           <div class="sv-meta">Score: ${v.safety_score}/100</div>
@@ -455,6 +384,7 @@ async function initSidebar() {
 initSidebar();
 
 // =================== CHATBOT ===================
+
 
 // Colour lookup used by formatAIText – avoids repeated object creation
 const _LEVEL_COLORS = {
@@ -509,42 +439,7 @@ function formatAIText(text) {
   return result;
 }
 
-function renderVehicleCard(v) {
-  return `
-    <div class="vehicle-card">
-      <div class="vehicle-header">
-        <div>
-          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px">Vehicle ID</div>
-          <div class="vehicle-id-badge">${v.id}</div>
-        </div>
-        <div>
-          <div class="risk-badge risk-${v.risk === 'HIGH' || v.risk === 'CRITICAL' ? 'high' : v.risk === 'MED' ? 'med' : 'low'}">${v.risk} RISK</div>
-        </div>
-      </div>
-      <div class="vehicle-stats">
-        <div class="v-stat">
-          <div class="v-stat-num" style="color:${v.score < 65 ? 'var(--red)' : v.score < 80 ? 'var(--amber)' : 'var(--green)'}">${v.score}</div>
-          <div class="v-stat-label">Safety Score</div>
-        </div>
-        <div class="v-stat">
-          <div class="v-stat-num" style="color:var(--red)">${v.exceptions}</div>
-          <div class="v-stat-label">Exceptions</div>
-        </div>
-        <div class="v-stat">
-          <div class="v-stat-num" style="color:var(--amber)">${100 - v.score}</div>
-          <div class="v-stat-label">Risk Index</div>
-        </div>
-      </div>
-      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:10px" onclick="loadVehicle('${v.id}')">View Full Profile →</button>
-    </div>
-  `;
-}
 
-function renderRecommendations(recs) {
-  return `<div class="recommendations" style="margin-top:8px">
-    ${recs.map(r => `<div class="rec-item"><div class="rec-icon">💡</div><div style="font-size:13px">${r}</div></div>`).join('')}
-  </div>`;
-}
 
 function addMessage(role, content, extra = '') {
   const chatWindow = document.getElementById('chat-window');  // fixed: was `window` (shadowed global)
@@ -702,6 +597,7 @@ function sendPrompt(text) {
 }
 
 async function submitChat() {
+
   if (isProcessing) return;
   const input = document.getElementById('chat-input');
   const text = input.value.trim();
@@ -726,14 +622,11 @@ async function submitChat() {
   removeTyping();
 
   console.time('addMessage-ai');
-  if (response.type === 'vehicle') {
-    addMessage('ai', formatAIText(response.analysis), renderVehicleCard(response.vehicle) + renderRecommendations(response.recs));
-  } else {
-    addMessage('ai', formatAIText(response.text));
-  }
+  addMessage('ai', formatAIText(response.text));
   console.timeEnd('addMessage-ai');
 
   isProcessing = false;
+
 }
 
 function handleChatKey(e) {
