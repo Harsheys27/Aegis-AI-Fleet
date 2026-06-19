@@ -404,11 +404,11 @@ function initVehiclePage() {
       const el = document.getElementById('vehicleTimelineChart');
       if (!el) return;
       if (el._chartInstance) el._chartInstance.destroy();
-      const baseData = [30, 25, 38, 42, 35, 48, 52, 44, 38, 32, 28, 22];
+      const baseData = [30, 24, 38, 42];
       el._chartInstance = new Chart(el, {
         type: 'line',
         data: {
-          labels: WEEKS,
+          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
           datasets: [{
             label: 'Total Exceptions',
             data: baseData.map(d => Math.round(d * (vd.exceptions / 35))),

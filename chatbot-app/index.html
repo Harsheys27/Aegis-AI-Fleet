@@ -70,28 +70,28 @@
     <div class="metrics-strip">
       <div class="metric-item">
         <div class="metric-label">Total Vehicles</div>
-        <div class="metric-value counter" data-target="1284">0</div>
-        <div class="metric-trend">↑ addition of this month</div>
+        <div class="metric-value counter" data-target="5392">0</div>
+        <div class="metric-trend">Distinct vehicles in fleet</div>
       </div>
       <div class="metric-item">
-        <div class="metric-label">Active Trips</div>
-        <div class="metric-value counter" data-target="847">0</div>
-        <div class="metric-trend">↑ Live across backend data </div>
+        <div class="metric-label">TOTAL EXCEPTIONS</div>
+        <div class="metric-value counter" data-target="7385">0</div>
+        <div class="metric-trend">Recorded Events</div>
       </div>
       <div class="metric-item">
         <div class="metric-label">Avg Safety Score</div>
-        <div class="metric-value counter" data-target="73" data-suffix="">0</div>
-        <div class="metric-trend">↑ +ve from last quarter</div>
+        <div class="metric-value counter" data-target="80" data-suffix="%">0</div>
+        <div class="metric-trend">Fleet-wide score</div>
       </div>
       <div class="metric-item">
-        <div class="metric-label">Exception Reduction</div>
-        <div class="metric-value counter" data-target="34" data-suffix="%">0</div>
-        <div class="metric-trend">↑ If AI is deployed </div>
+        <div class="metric-label">REPEAT VEHICLES</div>
+        <div class="metric-value counter" data-target="1660" data-suffix="">0</div>
+        <div class="metric-trend">Vehicles with recurring issues</div>
       </div>
       <div class="metric-item">
-        <div class="metric-label"> event records </div>
-        <div class="metric-value counter" data-target="18429">0</div>
-        <div class="metric-trend">↑ in the system </div>
+        <div class="metric-label">DUPLICATE RECORDS</div>
+        <div class="metric-value counter" data-target="1993">0</div>
+        <div class="metric-trend">Repeated entries</div>
       </div>
     </div>
   </section>
@@ -118,7 +118,7 @@
       <div class="glass-card feature-card">
         <div class="feature-icon purple">SYS</div>
         <div class="feature-title">Conversational AI Assistant</div>
-        <div class="feature-desc">ChatGPT-style interface. Ask about any vehicle, driver, or route. Get instant intelligent analysis and recommendations.</div>
+        <div class="feature-desc">Ask questions about vehicles, exception types, fleet metrics, and safety trends to receive intelligent insights and recommendations.</div>
       </div>
       <div class="glass-card feature-card">
         <div class="feature-icon amber">OPS</div>
@@ -127,13 +127,13 @@
       </div>
       <div class="glass-card feature-card">
         <div class="feature-icon green">ALT</div>
-        <div class="feature-title">Alternative Vehicle AI</div>
-        <div class="feature-desc">When a vehicle shows high risk, our AI instantly suggests safer alternatives from your fleet with matching capability profiles.</div>
+        <div class="feature-title">Fleet Exception Insights</div>
+        <div class="feature-desc">Visualize overspeed, harsh braking, night driving, and other safety events to identify recurring issues across the fleet.</div>
       </div>
       <div class="glass-card feature-card">
         <div class="feature-icon red">KPI</div>
         <div class="feature-title">Driver Performance Scoring</div>
-        <div class="feature-desc">Behavioral scoring models track 47 safety parameters to build comprehensive driver risk profiles over time.</div>
+        <div class="feature-desc">Safety scoring based on exception frequency and vehicle risk indicators to help prioritize corrective actions.</div>
       </div>
     </div>
   </section>
@@ -288,24 +288,24 @@
     <!-- TOP STATS -->
     <div class="db-grid-top">
       <div class="glass-card db-stat-card">
-        <div class="db-stat-label">Total Exceptions</div>
-        <div class="db-stat-val counter" data-target="7863" style="color:var(--red)">0</div>
-        <div class="db-stat-desc">↓ 18% from last period</div>
+        <div class="db-stat-label">Total Fleet Recorded</div>
+        <div class="db-stat-val counter" data-target="7385" style="color:var(--red)">0</div>
+        <!-- <div class="db-stat-desc">↓ 18% from last period</div> -->
       </div>
       <div class="glass-card db-stat-card">
         <div class="db-stat-label">Active Vehicles</div>
-        <div class="db-stat-val counter" data-target="847">0</div>
-        <div class="db-stat-desc">of 1,284 total fleet</div>
+        <div class="db-stat-val counter" data-target="5392">0</div>
+        <div class="db-stat-desc">of 7385 total fleet</div>
       </div>
       <div class="glass-card db-stat-card">
         <div class="db-stat-label">Fleet Safety Score</div>
-        <div class="db-stat-val counter" data-target="73" style="color:var(--amber)">0</div>
-        <div class="db-stat-desc">↑ +4 points this quarter</div>
+        <div class="db-stat-val counter" data-target="80" style="color:var(--green)">0</div>
+        <div class="db-stat-desc">↑ above average score </div>
       </div>
       <div class="glass-card db-stat-card">
-        <div class="db-stat-label">AI Recommendations</div>
-        <div class="db-stat-val counter" data-target="2847" style="color:var(--teal)">0</div>
-        <div class="db-stat-desc">Generated this period</div>
+        <div class="db-stat-label">High-Frequency Exception Vehicles</div>
+        <div class="db-stat-val counter" data-target="1660" style="color:var(--teal)">0</div>
+        <div class="db-stat-desc">Repeated occurrences identified</div>
       </div>
     </div>
 
@@ -435,7 +435,7 @@
       <!-- Right: Charts -->
       <div style="display:flex;flex-direction:column;gap:16px">
         <div class="glass-card" style="padding:24px">
-          <div class="db-chart-title">Fleet Exception Distribution</div>
+          <div class="db-chart-title"> Fleet Exception Breakdown</div>
           <div class="db-chart-sub">Live exception counts from fleet records</div>
           <div class="chart-container" style="height:200px">
             <canvas id="vehicleTimelineChart"></canvas>
@@ -446,28 +446,28 @@
           <div class="exception-bars" id="vd-exception-bars">
             <div class="ex-bar-row">
               <div class="ex-bar-label">(OSP) Overspeed</div>
-              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="78" style="background:var(--red)"></div></div>
-              <div class="ex-bar-val">52</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="100" style="background:var(--red)"></div></div>
+              <div class="ex-bar-val">3268</div>
             </div>
             <div class="ex-bar-row">
               <div class="ex-bar-label">(BRK) Harsh Braking</div>
-              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="55" style="background:var(--amber)"></div></div>
-              <div class="ex-bar-val">31</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="92" style="background:var(--amber)"></div></div>
+              <div class="ex-bar-val">3020</div>
             </div>
             <div class="ex-bar-row">
               <div class="ex-bar-label">(NGT) Night Driving</div>
-              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="30" style="background:var(--purple)"></div></div>
-              <div class="ex-bar-val">18</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="15" style="background:var(--purple)"></div></div>
+              <div class="ex-bar-val">543</div>
             </div>
             <div class="ex-bar-row">
               <div class="ex-bar-label">(OPS) Harsh Accel</div>
-              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="40" style="background:var(--accent)"></div></div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="2" style="background:var(--accent)"></div></div>
               <div class="ex-bar-val">21</div>
             </div>
             <div class="ex-bar-row">
-              <div class="ex-bar-label">(ALT) Harsh Maneuver</div>
-              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="15" style="background:var(--teal)"></div></div>
-              <div class="ex-bar-val">5</div>
+              <div class="ex-bar-label">(SYS) Faulty System</div>
+              <div class="ex-bar-track"><div class="ex-bar-fill" data-width="7" style="background:var(--teal)"></div></div>
+              <div class="ex-bar-val">69</div>
             </div>
           </div>
         </div>
