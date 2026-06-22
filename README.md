@@ -158,4 +158,4 @@ Kriti Labs
 
 # License
 
-This repository is intended for educational, research, and demonstration purposes. period.
+This repository is intended for educational, research, and demonstration purposes only.
